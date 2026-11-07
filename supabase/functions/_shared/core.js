@@ -110,7 +110,9 @@ async function readJson(request) {
   if(!request.headers.get("content-type")?.includes("application/json")) throw new Error("bad_json");
   if(Number(request.headers.get("content-length"))>16000) throw new Error("bad_json");
   const text=await request.text(); if(text.length>16000) throw new Error("bad_json");
-  return JSON.parse(text);
+  const value=JSON.parse(text);
+  if(!value || typeof value!=="object" || Array.isArray(value))throw new Error("bad_json");
+  return value;
 }
 export async function drain(rpc,tg,admin) {
   for(let batch=0;batch<3;batch++) {
@@ -147,7 +149,7 @@ export function makeHandlers(env,{rpc, tg}={}) {
       const headers=origin?cors(origin):{};
       if(request.method==="OPTIONS")return new Response(null,{status:204,headers});
       if(request.method!=="POST")return json({error:"Метод не поддерживается."},405,headers);
-      if(!admin || !get("BOT_USERNAME") || get("FORM_SECRET").length<32)return json({error:"Приём обращений пока не подключён."},503,headers);
+      if(!admin || !get("BOT_TOKEN") || !get("BOT_USERNAME") || !allowedOrigin || get("FORM_SECRET").length<32)return json({error:"Приём обращений пока не подключён."},503,headers);
       try {
         const data=await readJson(request);
         if(data.website)return json({error:"Не удалось отправить форму."},400,headers);
