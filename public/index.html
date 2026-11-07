@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172d56">
+<meta name="description" content="Оставьте обращение и получите ответ в Telegram. Учебный проект NOBEL.">
+<title>NOBEL · На связи</title>
+<link rel="stylesheet" href="./styles.css">
+<script src="./config.js" defer></script><script src="./app.js" defer></script>
+</head>
+<body>
+<header class="header"><a class="brand" href="./"><span class="brand-mark" aria-hidden="true">N</span><span>NOBEL <small>НА СВЯЗИ</small></span></a><a class="nav-link" href="#how">Как это работает <span aria-hidden="true">↗</span></a></header>
+<main class="main">
+<section class="intro" aria-labelledby="page-title">
+<div class="eyebrow"><span></span> ВАШ ВОПРОС НЕ ПОТЕРЯЕТСЯ</div>
+<h1 id="page-title">Начнём<br>с <em>сообщения</em></h1>
+<p class="lead">Расскажите, с чем нужна помощь.<br>Мы прочитаем и ответим вам в Telegram.</p>
+<div class="steps" id="how"><h2>Всё просто</h2>
+<ol><li><span>01</span><div><strong>Напишите нам</strong><p>Имя, тема и несколько слов о вашем вопросе</p></div></li>
+<li><span>02</span><div><strong>Подтвердите в боте</strong><p>Перейдите в Telegram и нажмите «Запустить»</p></div></li>
+<li><span>03</span><div><strong>Продолжите разговор</strong><p>Ответы и уточнения останутся в одном чате</p></div></li></ol></div>
+<div class="intro-note"><span class="note-dot"></span> Без звонков и регистрации на сайте</div>
+</section>
+<section class="form-card" aria-labelledby="form-title">
+<div class="card-top"><span class="pill">НОВОЕ ОБРАЩЕНИЕ</span><span class="card-symbol" aria-hidden="true">↗</span></div>
+<div id="form-panel"><h2 id="form-title">Чем можем помочь?</h2><p class="card-description">Заполните форму. Следующий шаг — Telegram.</p>
+<div id="availability" class="notice" role="status" hidden>Приём обращений пока не подключён. Пожалуйста, зайдите позже.</div>
+<form id="application-form">
+<label for="name">Как к вам обращаться</label><input id="name" name="name" required maxlength="80" autocomplete="given-name" placeholder="Ваше имя">
+<label for="subject">Тема обращения</label><input id="subject" name="subject" required maxlength="120" placeholder="Например, вопрос о занятиях">
+<div class="label-row"><label for="body">Расскажите подробнее</label><span id="counter" aria-live="off">0 / 2000</span></div><textarea id="body" name="body" required minlength="5" maxlength="2000" rows="5" placeholder="Что вы хотели бы узнать или обсудить?"></textarea>
+<div class="honeypot" aria-hidden="true"><label for="website">Ваш сайт</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<p class="form-hint">Не указывайте пароли, платёжные данные и другую конфиденциальную информацию.</p>
+<button id="submit-button" type="submit"><span>Продолжить в Telegram</span><span aria-hidden="true">↗</span></button>
+<p class="consent">Заявка будет принята после подтверждения в боте. Ответ придёт туда же.</p>
+<p id="form-error" class="error" role="alert" hidden></p>
+</form></div>
+<div id="confirmation-panel" class="confirmation" hidden tabindex="-1">
+<div class="success-mark" aria-hidden="true">↗</div><span class="eyebrow">ОСТАЛСЯ ОДИН ШАГ</span><h2>Подтвердите<br>обращение в боте</h2>
+<p>Нажмите кнопку ниже, затем <strong>«Запустить»</strong> в Telegram. Бот сообщит номер принятой заявки.</p>
+<a id="telegram-link" class="primary-link" rel="noreferrer">Открыть Telegram <span aria-hidden="true">↗</span></a>
+<p class="link-warning">Ссылка действует 30 минут. Не пересылайте её другим людям.</p>
+<button type="button" id="back-button" class="secondary-button">Вернуться к форме</button>
+</div>
+</section>
+</main>
+<footer class="footer"><span>© NOBEL · Кафедра будущего</span><span>Учебный некоммерческий проект</span></footer>
+</body></html>
+
