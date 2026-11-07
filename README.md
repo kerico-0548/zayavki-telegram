@@ -34,6 +34,7 @@ npm run preview
 ## Подключение: короткий порядок
 
 1. Через @BotFather создайте отдельного нового бота, затем нажмите Start в нём.
+   Если webhook ещё не подключён, можно безопасно определить владельца заранее: заполните BOT_TOKEN и BOT_USERNAME в игнорируемом .local/secrets.env, выполните `node scripts/owner.mjs`, откройте выданную одноразовую ссылку своим аккаунтом и нажмите Start. Затем `node scripts/owner.mjs check` сохранит ADMIN_CHAT_ID. Обычный первый посетитель владельцем не назначается.
 2. Создайте проект Supabase Free. Выполните по порядку оба SQL из supabase/migrations. Они создают отдельную схему requests_app, не удаляя чужие таблицы.
 3. Добавьте Secrets: BOT_TOKEN, BOT_USERNAME без @, TG_WEBHOOK_SECRET, SETUP_SECRET, FORM_SECRET, SITE_URL. Последние три секрета — разные случайные строки длиной от 32 символов. ADMIN_CHAT_ID пока можно не задавать.
 4. Запустите `npm run bundle`. В .local/dashboard появятся три самостоятельных файла для редактора Supabase. Создайте функции create-application, telegram-hook, setup-telegram. Для каждой отключите Verify JWT: авторизация telegram-hook и setup-telegram выполняется внутри кода.
