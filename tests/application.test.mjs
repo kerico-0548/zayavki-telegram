@@ -154,3 +154,14 @@ test("Переполнение формы ограничено сервером,
  }finally{await db.close();}
 });
 
+
+test("Новый формат серверных ключей Supabase используется без подстановки в Bearer JWT",async()=>{
+ const previous=globalThis.fetch;let headers;
+ globalThis.fetch=async(url,options)=>{headers=options.headers;assert.ok(url.endsWith("/rest/v1/rpc/nr_create_draft"));return Response.json({ok:true,expires_at:"2026-11-07T12:00:00Z"});};
+ try{
+  const h=makeHandlers({...env,SUPABASE_SECRET_KEYS:JSON.stringify({default:"sb_secret_testonly"}),SUPABASE_SERVICE_ROLE_KEY:"legacy-should-not-be-used"});
+  const r=await h.create(new Request("https://fn",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())}));
+  assert.equal(r.status,200);assert.equal(headers.apikey,"sb_secret_testonly");assert.equal(headers.Authorization,undefined);
+ }finally{globalThis.fetch=previous;}
+});
+

@@ -137,7 +137,12 @@ export async function drain(rpc,tg,admin) {
 }
 export function makeHandlers(env,{rpc, tg}={}) {
   const get=name=>env[name]||"";
-  const db=rpc || makeRpc(get("SUPABASE_URL"),get("SERVER_DB_KEY")||get("SUPABASE_SERVICE_ROLE_KEY"));
+  let modernKey="";
+  try {
+    const keys=JSON.parse(get("SUPABASE_SECRET_KEYS")||"{}");
+    modernKey=typeof keys.default==="string"?keys.default:Object.values(keys).find(x=>typeof x==="string")||"";
+  } catch { /* Legacy projects may not provide the modern key dictionary. */ }
+  const db=rpc || makeRpc(get("SUPABASE_URL"),get("SERVER_DB_KEY")||modernKey||get("SUPABASE_SERVICE_ROLE_KEY"));
   const bot=tg || telegram(get("BOT_TOKEN"));
   const admin=/^[1-9]\d{0,15}$/.test(get("ADMIN_CHAT_ID"))?Number(get("ADMIN_CHAT_ID")):null;
   let allowedOrigin="";try{allowedOrigin=new URL(get("SITE_URL")).origin;}catch{}
